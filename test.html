@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sha1/0.6.0/sha1.min.js"></script>
+
+    <script>
+        const api_key = 'lVwarDHvS88X6alJOBBLtTmeTmXkQ4YbY5UNbKJIptTOrXdnryzA9QhwJrZSbGB8aOn797LgZhOvrw9sQxducacV9GOqrYHkB0YPdZuw6v7sQKmaLyUxSn84AWnZ4sbb';
+        const params = {
+            merchant_id: 418,
+            amount: 10.59,
+            currency: 'USD',
+            order_id: "1681487400",
+            order_desc: 'Описание',
+            response_url: 'https://payform.fubonfi.com/',
+            server_url: 'https://payform.fubonfi.com/',
+            customer_id: '1233',
+        };
+        const signatureArray = Object.entries(params)
+        .filter(([, value]) => value !== '' && value !== null)
+        .sort((a, b) => a[0].localeCompare(b[0]))
+        .map(([, value]) => value);
+        const signatureString = api_key + '|' + signatureArray.join('|');
+        const signature = sha1(signatureString);
+        console.log(signature);
+
+        params.signature = signature.toLowerCase();
+    </script>
+</body>
+</html>
